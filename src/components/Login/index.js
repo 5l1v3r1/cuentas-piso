@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
-import './index.css'
-
 import { Alert, Button, Form, Input, FormText } from 'reactstrap';
 import { InputGroup, InputGroupAddon } from 'reactstrap';
-import { FormFeedback } from 'reactstrap';
+
+import './index.css'
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogged: false,
       error: false,
       user: '',
       pswd: ''
@@ -36,26 +34,25 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     // Faltan las comprobaciones reales contra DB
-    this.checkAuth()
+    //this.checkAuth();
 
     if ((this.state.user === this.state.real_user) && (this.state.pswd === this.state.real_pswd)) {
-      this.setState({isLogged: true});
-      localStorage.setItem('isLogged', true);
+      localStorage.setItem('isAuthenticated', true);
       localStorage.setItem('user', this.state.user);
-
-      this.props.toggleLoginBoard();
+      this.props.toggleAuthenticated();
       }
     else {
       // Mostrar mensaje de error
-      this.setState({error: true});
-      //return(this.printErrorMsg());
+      this.setState({
+        error: true
+      });
     }
-    event.preventDefault();
   }
 
   printErrorMsg() {
-    if (this.state.error) {
+    if(this.state.error){
       return (
         <Alert color="danger">
           Usuario/contraseña incorrecto
@@ -64,50 +61,47 @@ class Login extends Component {
     }
   }
 
+  componentDidMount() {
+    this.checkAuth();
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="container">
-          
-          <Form onSubmit={this.handleSubmit} id="loginForm">
 
+      <div className="loginFormApp">
+        
+        <Form onSubmit={this.handleSubmit} id="loginForm">
 
-            <FormText>Enter username:</FormText>
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">@</InputGroupAddon>
-              <Input
-                type="text"
-                name="user"
-                id="user"
-                value={this.state.user}
+          <FormText>Enter username:</FormText>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+            <Input
+              type="text"
+              name="user"
+              id="user"
+              value={this.state.user}
+              onChange={this.handleInputChange}
+            />
+          </InputGroup>
+
+          <FormText>Enter password:</FormText>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">#</InputGroupAddon>
+            <Input
+                type="password"
+                name="pswd"
+                id="pswd"
+                value={this.state.pswd}
                 onChange={this.handleInputChange}
               />
-            </InputGroup>
-            <FormFeedback valid>Sweet! that name is available</FormFeedback>
-            <FormFeedback valid tooltip>Sweet! that name is available</FormFeedback>
-            <FormFeedback>Oh noes! that name is already taken</FormFeedback>
+          </InputGroup>
 
-            <FormText>Enter password:</FormText>
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">#</InputGroupAddon>
-              <Input
-                  type="password"
-                  name="pswd"
-                  id="pswd"
-                  value={this.state.pswd}
-                  onChange={this.handleInputChange}
-                />
-            </InputGroup>
+          <Button type="submit" value="Log IN" color="primary" size="lg" block>Log in</Button>
 
-            <Button type="submit" value="Log IN" color="primary" size="lg" block>Log in</Button>
+        </Form>
 
 
-          </Form>
-
-
-
-          { this.printErrorMsg() }
-        </div>
+        { this.printErrorMsg() }
       </div>
 
     );

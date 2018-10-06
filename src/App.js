@@ -1,49 +1,50 @@
 import React, { Component } from 'react';
 import Login from './components/Login';
 import Board from './components/Board';
-import firebase from 'firebase';
+import Menu from './components/Menu';
 import './App.css';
 
-const config = {
-  apiKey: "AIzaSyBFfeJK3HDGsDTjMW22mmcbZB9bwnQDTNA",
-  authDomain: "cuentas-piso.firebaseapp.com",
-  databaseURL: "https://cuentas-piso.firebaseio.com",
-  projectId: "cuentas-piso",
-  storageBucket: "cuentas-piso.appspot.com",
-  messagingSenderId: "236114228328"
-};
-firebase.initializeApp(config);
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      toggleLoginBoard: false
-    }
+      isAuthenticated: false
+    };
+
     this.printLoginorBoard = this.printLoginorBoard.bind(this);
-    this.toggleLoginBoard = this.toggleLoginBoard.bind(this);
+    this.toggleAuthenticated = this.toggleAuthenticated.bind(this);
   }
-  toggleLoginBoard(){
+
+  componentDidMount(){
     this.setState({
-      toggleLoginBoard: !this.state.toggleLoginBoard
+      isAuthenticated: (localStorage.getItem('isAuthenticated'))
     });
   }
+
+  toggleAuthenticated(){
+    this.setState({
+      isAuthenticated: !this.state.isAuthenticated,
+    });
+  }
+
   printLoginorBoard(){
-    if(this.state.toggleLoginBoard){
-      return <Board toggleLoginBoard={this.toggleLoginBoard}/>
+    if(this.state.isAuthenticated){
+      return <Board toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated}/>
     }else{
-      return <Login toggleLoginBoard={this.toggleLoginBoard}/>
+      return <Login toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated}/>
     }
   }
+
   render() {
-    let messagesRef = firebase.database();
-    console.log(messagesRef);
+    // FIREBASE !!!!
+    
     return (
       <div className="App">
         <div className="container">
-          {
-            this.printLoginorBoard()
-          }
+          <Menu toggleAuthenticated={() => this.toggleAuthenticated()} isAuthenticated={this.state.isAuthenticated}/>
+          {this.printLoginorBoard()}
+       
         </div>
       </div>
     );
