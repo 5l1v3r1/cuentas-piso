@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Login from './components/Login';
+import Board from './components/Board';
+import firebase from 'firebase';
 import './App.css';
 
+const config = {
+  apiKey: "AIzaSyBFfeJK3HDGsDTjMW22mmcbZB9bwnQDTNA",
+  authDomain: "cuentas-piso.firebaseapp.com",
+  databaseURL: "https://cuentas-piso.firebaseio.com",
+  projectId: "cuentas-piso",
+  storageBucket: "cuentas-piso.appspot.com",
+  messagingSenderId: "236114228328"
+};
+firebase.initializeApp(config);
+
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      toggleLoginBoard: false
+    }
+    this.printLoginorBoard = this.printLoginorBoard.bind(this);
+    this.toggleLoginBoard = this.toggleLoginBoard.bind(this);
+  }
+  toggleLoginBoard(){
+    this.setState({
+      toggleLoginBoard: !this.state.toggleLoginBoard
+    });
+  }
+  printLoginorBoard(){
+    if(this.state.toggleLoginBoard){
+      return <Board toggleLoginBoard={this.toggleLoginBoard}/>
+    }else{
+      return <Login toggleLoginBoard={this.toggleLoginBoard}/>
+    }
+  }
   render() {
+    let messagesRef = firebase.database();
+    console.log(messagesRef);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="container">
+          {
+            this.printLoginorBoard()
+          }
+        </div>
       </div>
     );
   }
