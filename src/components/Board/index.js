@@ -193,23 +193,24 @@ class Board extends Component {
               </Col>
             </Row>
 
-            <Row>
-              {/*Mostrando autor*/}
-              <h3>this.state.author: <strong>{localStorage.getItem('username')}</strong></h3>
-            </Row>
-            <Row>
-              {/*Mostrando cuenta seleccionada*/}
-              <h3>this.state.selectedCuenta: <strong>{ this.state.selectedCuenta }</strong></h3>
-              {/*Mostrando usuarios seleccionados*/}
-            </Row>
-            <Row>
-              <h3>this.state.selectedUsers: </h3>
-              <ul>
-              <strong>{ this.printSelectedUsers() }</strong>
-              </ul>
-            </Row>
-
            </Form> 
+
+           <Row>
+             {/*Mostrando autor*/}
+             <h3>this.state.author: <strong>{localStorage.getItem('username')}</strong></h3>
+           </Row>
+           <Row>
+             {/*Mostrando cuenta seleccionada*/}
+             <h3>this.state.selectedCuenta: <strong>{ this.state.selectedCuenta }</strong></h3>
+             {/*Mostrando usuarios seleccionados*/}
+           </Row>
+           <Row>
+             <h3>this.state.selectedUsers: </h3>
+             <ul>
+              <strong>{ this.printSelectedUsers() }</strong>
+             </ul>
+           </Row>
+
         </Container>
         </div>
     );
