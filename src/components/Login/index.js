@@ -40,7 +40,7 @@ class Login extends Component {
 
     if ((this.state.user === this.state.real_user) && (this.state.pswd === this.state.real_pswd)) {
       localStorage.setItem('isAuthenticated', true);
-      localStorage.setItem('user', this.state.user);
+      localStorage.setItem('username', this.state.user);
       this.props.toggleAuthenticated();
       }
     else {

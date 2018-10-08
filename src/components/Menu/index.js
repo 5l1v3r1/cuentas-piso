@@ -34,7 +34,7 @@ export default class Menu extends React.Component {
 
   logout() {
     localStorage.setItem('isAuthenticated', false);
-    localStorage.setItem('user', '');
+    localStorage.setItem('username', '');
     this.props.toggleAuthenticated();
   }
 
