@@ -4,6 +4,8 @@ import { Col, Row, Form, Button, FormGroup,
          DropdownToggle, DropdownMenu, 
          Label, Dropdown, DropdownItem} from 'reactstrap';
 
+         import ModalAddCuenta from './ModalAddCuenta';
+
 
 export default class PaymentsForm extends Component {
     constructor(props) {
@@ -119,8 +121,8 @@ export default class PaymentsForm extends Component {
 
             <Row>
             <Col>
-                {/* Button Add Cuenta */}
-                <Button color="primary" type="button" value="addCuenta" onClick={this.onClick} disabled>Añadir cuenta</Button>
+                {/* Modal Add Cuenta */}
+                <ModalAddCuenta printUsers={this.printUsers} />
             </Col>
             <Col>
                 {/* Button Add Payment */}

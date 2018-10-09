@@ -91,13 +91,13 @@ class Board extends Component {
 
           <PaymentsForm currentUser={ this.state.currentUser } users={this.state.users} 
                         cuentas={this.state.cuentas} lineasCuenta={this.state.lineasCuenta}
-                        addSelectedUser={this.addSelectedUser} removeSelectedUser={this.removeSelectedUser}
                         selectedUsers={this.state.selectedUsers} idSelectedCuenta={this.state.idSelectedCuenta}
+                        addSelectedUser={this.addSelectedUser} removeSelectedUser={this.removeSelectedUser}
                         handleChange={this.handleChange} />
 
           <PrintData currentUser={this.state.currentUser} idSelectedCuenta={this.state.idSelectedCuenta}
-                                  printSelectedUsers={this.printSelectedUsers} desc={this.state.desc} 
-                                  amount={this.state.amount}/>
+                                  desc={this.state.desc} amount={this.state.amount}
+                                  printSelectedUsers={this.printSelectedUsers} />
 
         </Container>
         </div>

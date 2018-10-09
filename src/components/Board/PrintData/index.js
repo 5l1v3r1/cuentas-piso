@@ -3,14 +3,15 @@ import { Table } from 'reactstrap';
 
 import './index.css'
 
+
 export default class PrintData extends Component {
     constructor(props) {
       super(props);
       this.state = {}
-      // props = currentUser, idSelectedCuenta, printSelectedUsers
     }
     render(){
         return(
+          <div>
             <Table hover>
             <thead>
               <tr>
@@ -41,36 +42,7 @@ export default class PrintData extends Component {
               </tr>
             </tbody>
           </Table>
+          </div>
         );
     }
 }
-
-
-//<div>
-// <Row>
-//     {/*Mostrando autor*/}
-//     <h3>this.props.currentUser: <strong>{this.props.currentUser}</strong></h3>
-// </Row>
-// <Row>
-//     {/*Mostrando cuenta seleccionada*/}
-//     <h3>this.props.idSelectedCuenta: <strong>{ this.props.idSelectedCuenta }</strong></h3>
-// </Row>
-
-// <Row>
-//     {/*Mostrando descripción introducida*/}
-//     <h3>this.props.desc: <strong>{ this.props.desc }</strong></h3>
-// </Row>
-
-// <Row>
-//     {/*Mostrando cantidad introducida*/}
-//     <h3>this.props.amount: <strong>{ this.props.amount }</strong></h3>
-// </Row>
-
-// <Row>
-//     {/*Mostrando usuarios seleccionados*/}
-//     <h3>this.props.selectedUsers: </h3>
-//     <ul>
-//         <strong>{ this.props.printSelectedUsers() }</strong>
-//     </ul>
-// </Row>
-// </div>
