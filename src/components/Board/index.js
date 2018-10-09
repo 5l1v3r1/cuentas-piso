@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Form, Button, FormGroup, 
-         Label, InputGroup, InputGroupAddon, Input,
-         Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 import './index.css'
+import PaymentsForm from './PaymentsForm'
+import PrintData from './PrintData'
 
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropdownOpen: false,
-      currentUser: (localStorage.getItem('user')),
+      currentUser: (localStorage.getItem('currentUser')),
       users: [],
       cuentas: [],
       lineasCuenta: [],
-
-      selectedCuenta: '',
-      selectedUsers: []
+      idSelectedCuenta: '',
+      selectedUsers: [],
+      desc: '',
+      amount: ''
     };
     this.fetchData = this.fetchData.bind(this);
-    this.printUsers = this.printUsers.bind(this);
+    this.addSelectedUser = this.addSelectedUser.bind(this);
+    this.removeSelectedUser = this.removeSelectedUser.bind(this);
     this.printSelectedUsers = this.printSelectedUsers.bind(this);
-    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
-    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount(){
@@ -59,9 +57,24 @@ class Board extends Component {
     });
   }
 
-  handleSubmit(event){
-    event.preventDefault();
-    // Falta lógica de añadir nueva línea de cuenta
+  addSelectedUser(id) {
+    this.setState({ 
+        selectedUsers: this.state.selectedUsers.concat([id])
+    })
+  }
+  removeSelectedUser(id){
+  var array = this.state.selectedUsers.filter(function(user) { 
+      return user !== id });
+  this.setState({
+      selectedUsers: array
+      });
+  }
+  printSelectedUsers(){
+    return this.state.selectedUsers.map((user) => {
+      return (
+          <li>{user}</li>
+      );
+    });
   }
 
   handleChange(event) {
@@ -71,145 +84,20 @@ class Board extends Component {
     this.setState({[name]: value});
   }
 
-  onClick(event) {
-    console.log("Falta por hacer lógica de botón AddPayment");
-  }
-
-  handleCheckbox(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    if ((this.state.selectedUsers).includes(name)) {
-      this.removeSelectedUser(name);
-    }
-    else {
-      this.addSelectedUser(name); 
-    }
-  }
-  addSelectedUser(id) {
-    this.setState({ 
-      selectedUsers: this.state.selectedUsers.concat([id])
-    })
-  }
-  removeSelectedUser(id){
-    var array = this.state.selectedUsers.filter(function(user) { 
-      return user !== id });
-    this.setState({
-      selectedUsers: array
-      });
-  }
-
-  printUsers(){
-    return this.state.users.map((user) => {
-      return (
-          <Label check>
-            <Input name={user.id} 
-                   type="checkbox"
-                   onChange={this.handleCheckbox}
-            />
-            { user.username }
-          </Label>
-      );
-    });
-  }
-
-  printSelectedUsers(){
-    return this.state.selectedUsers.map((user) => {
-      return (
-          <li>{user}</li>
-      );
-    });
-  }
-
-  printCuentasDropdown(){
-    return this.state.cuentas.map((cuenta) => {
-      return (
-        <DropdownItem name="selectedCuenta"
-                      onClick={this.handleChange}
-                      value={cuenta.id}>
-          {cuenta.name}
-        </DropdownItem>
-      );
-    });
-  }
-
-  toggleDropdown() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
-
   render() {
     return (
       <div className="Board">
       <Container>
 
-          <Form id="paymentsForm" onSubmit={this.handleSubmit}>    
-            <Row>
-              <Col>
-                <InputGroup>
-                  {/* Descripción línea cuenta */}
-                  <InputGroupAddon addonType="prepend">@</InputGroupAddon>
-                  <Input name="lineCountDesc" placeholder="Description"
-                        type="text" 
-                        onChange={this.handleChange}
-                        value={this.state.name}
-                  />
-                </InputGroup>
-              </Col>
-              <Col>
-                <InputGroup>
-                  {/* Cantidad */}
-                  <Input name="amount" placeholder="Amount"
-                        type="number" step="0.05" />
-                  <InputGroupAddon addonType="append">€</InputGroupAddon>
-                </InputGroup>
-              </Col>
-            </Row>
-          
-            <Row>
-              <Col>
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
-                  <DropdownToggle caret>
-                    Cuenta 
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    { this.printCuentasDropdown() }
-                  </DropdownMenu>
-                </Dropdown>
-              </Col>
-              <Col>
-                {/* Checkbox usuarios */}
-                <FormGroup check inline>
-                  { this.printUsers() }
-                </FormGroup>
-              </Col>
-            </Row>
-            
-            <Row>
-              <Col>
-                {/* Button Add Payment */}
-                <Button color="primary" type="button" value="Add payment" onClick={this.onClick}>Add payment</Button>
-              </Col>
-            </Row>
+          <PaymentsForm currentUser={ this.state.currentUser } users={this.state.users} 
+                        cuentas={this.state.cuentas} lineasCuenta={this.state.lineasCuenta}
+                        addSelectedUser={this.addSelectedUser} removeSelectedUser={this.removeSelectedUser}
+                        selectedUsers={this.state.selectedUsers} idSelectedCuenta={this.state.idSelectedCuenta}
+                        handleChange={this.handleChange} />
 
-           </Form> 
-
-           <Row>
-             {/*Mostrando autor*/}
-             <h3>this.state.author: <strong>{localStorage.getItem('username')}</strong></h3>
-           </Row>
-           <Row>
-             {/*Mostrando cuenta seleccionada*/}
-             <h3>this.state.selectedCuenta: <strong>{ this.state.selectedCuenta }</strong></h3>
-             {/*Mostrando usuarios seleccionados*/}
-           </Row>
-           <Row>
-             <h3>this.state.selectedUsers: </h3>
-             <ul>
-              <strong>{ this.printSelectedUsers() }</strong>
-             </ul>
-           </Row>
+          <PrintData currentUser={this.state.currentUser} idSelectedCuenta={this.state.idSelectedCuenta}
+                                  printSelectedUsers={this.printSelectedUsers} desc={this.state.desc} 
+                                  amount={this.state.amount}/>
 
         </Container>
         </div>
