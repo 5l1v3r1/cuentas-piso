@@ -6,14 +6,20 @@ import { InputGroup, InputGroupAddon } from 'reactstrap';
 import './index.css'
 
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       error: false,
       user: '',
       pswd: ''
     };
+    
+    // this.props
+      // toggleAuthenticated()
+
+    
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
@@ -107,5 +113,3 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Container, Row } from 'reactstrap';
 
 import './index.css'
-import PaymentsForm from './PaymentsForm'
-import PrintData from './PrintData'
+import PaymentsForm from '../../components/PaymentsForm'
+import PrintData from '../../components/PrintData'
 
 class Board extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       currentUser: (localStorage.getItem('currentUser')),
       users: [],
@@ -18,11 +19,15 @@ class Board extends Component {
       desc: '',
       amount: ''
     };
+    
+    // this.props -> EMPTY
+
     this.fetchData = this.fetchData.bind(this);
     this.addSelectedUser = this.addSelectedUser.bind(this);
     this.removeSelectedUser = this.removeSelectedUser.bind(this);
     this.printSelectedUsers = this.printSelectedUsers.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount(){
@@ -32,10 +37,10 @@ class Board extends Component {
   fetchData(){
     this.setState({
       users: [
-        {id:'00', username:'user0', pswd_hash:'hashed0', avatar: ''},
-        {id:'01', username:'user1', pswd_hash:'hashed1', avatar: ''},
-        {id:'02', username:'user2', pswd_hash:'hashed2', avatar: ''},
-        {id:'03', username:'user3', pswd_hash:'hashed3', avatar: ''}
+        {id:'00', name:'user0', pswd_hash:'hashed0', avatar:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJHKWpDrsNAllIxpJwZC7oUAeqdRmY1w3Rrj1clpT_pcyI9k8iQA'},
+        {id:'01', name:'user1', pswd_hash:'hashed1', avatar:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLr-TxT7i0PY6lDSzWskSqEhaW0rIzE7L-7A78iUrwTTBRturkQ'},
+        {id:'02', name:'user2', pswd_hash:'hashed2', avatar:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyXKx81EQRJCG5uBejziBsCsouhOobdxBmfN6x6bva4mLZlv4LPA'},
+        {id:'03', name:'user3', pswd_hash:'hashed3', avatar:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzgim_xNkJUb0wP07QWo7NtkqR6JIdneqJsnL_BxETOvKlWefd'}
       ],
 
       cuentas: [
@@ -55,6 +60,15 @@ class Board extends Component {
       ]
 
     });
+  }
+
+  reset() {
+    this.setState({
+      idSelectedCuenta: '',
+      selectedUsers: [],
+      desc: '',
+      amount: ''
+    })
   }
 
   addSelectedUser(id) {
@@ -93,7 +107,7 @@ class Board extends Component {
                         cuentas={this.state.cuentas} lineasCuenta={this.state.lineasCuenta}
                         selectedUsers={this.state.selectedUsers} idSelectedCuenta={this.state.idSelectedCuenta}
                         addSelectedUser={this.addSelectedUser} removeSelectedUser={this.removeSelectedUser}
-                        handleChange={this.handleChange} />
+                        handleChange={this.handleChange} reset={this.reset} />
 
           <PrintData currentUser={this.state.currentUser} idSelectedCuenta={this.state.idSelectedCuenta}
                                   desc={this.state.desc} amount={this.state.amount}

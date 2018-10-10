@@ -8,6 +8,14 @@ export default class PrintData extends Component {
     constructor(props) {
       super(props);
       this.state = {}
+
+      // this.props:
+        // currentUser
+        // idSelectedCuenta
+        // desc
+        // amount
+        // selectedUsers
+        // printSelectedUsers()
     }
     render(){
         return(

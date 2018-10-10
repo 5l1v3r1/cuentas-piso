@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import Login from './components/Login';
-import Board from './components/Board';
+import Login from './containers/Login';
+import Board from './containers/Board';
 import Menu from './components/Menu';
 import './App.css';
 
+
+// !!! LOCAL STORAGE VARS !!!
+// isAuthenticated
+// currentUser
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      currentUser: ''
     };
 
     this.printLoginorBoard = this.printLoginorBoard.bind(this);
@@ -18,7 +23,8 @@ class App extends Component {
 
   componentDidMount(){
     this.setState({
-      isAuthenticated: (localStorage.getItem('isAuthenticated'))
+      isAuthenticated: (localStorage.getItem('isAuthenticated')),
+      currentUser: (localStorage.getItem('currentUser'))
     });
   }
 
@@ -30,9 +36,9 @@ class App extends Component {
 
   printLoginorBoard(){
     if(this.state.isAuthenticated){
-      return <Board toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated}/>
+      return <Board toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated} />
     }else{
-      return <Login toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated}/>
+      return <Login toggleAuthenticated={this.toggleAuthenticated} isAuthenticated={this.state.isAuthenticated}  />
     }
   }
 

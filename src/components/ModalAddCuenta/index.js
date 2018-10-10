@@ -3,13 +3,19 @@ import { FormGroup, Form, Input, Button, Modal, ModalHeader, ModalBody, ModalFoo
 
 import './index.css'
 
-class ModalExample extends React.Component {
+export default class ModalAddCuenta extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
-      users: []
+      modal: false
     };
+
+    // this.props.
+      // reset
+      // buttonLabel
+      // className
+      // handleChange
+      // printUsersAsCheckbox()
 
     this.toggle = this.toggle.bind(this);
   }
@@ -18,12 +24,13 @@ class ModalExample extends React.Component {
     this.setState({
       modal: !this.state.modal
     });
+    this.props.reset();
   }
 
   render() {
     return (
       <div>
-        <Button color="primary" type="button" value="addCuenta"
+        <Button color="success" type="button" value="addCuenta"
                 onClick={this.toggle}>{this.props.buttonLabel}
                 Añadir cuenta
         </Button>
@@ -38,7 +45,7 @@ class ModalExample extends React.Component {
             {/* Checkbox usuarios involucrados */}
             <h5>Usuarios involucrados:</h5>
             <FormGroup id="usersCheckboxInput" check inline>
-                { this.props.printUsers() }
+                { this.props.printUsersAsCheckbox() }
             </FormGroup>
           </ModalBody>
           <ModalFooter>
@@ -51,5 +58,3 @@ class ModalExample extends React.Component {
     );
   }
 }
-
-export default ModalExample;

@@ -1,27 +1,23 @@
 import React from 'react';
 import {
-  Button,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  Button, Collapse, Nav, NavItem, NavLink,
+  Navbar, NavbarToggler, NavbarBrand, 
+  UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem 
+} from 'reactstrap';
 
 
 export default class Menu extends React.Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
+    
     this.state = {
       isOpen: false,
     };
 
+    // this.props
+      // toggleAuthenticated()
+      // isAuthenticated
+      
     this.toggle = this.toggle.bind(this);
     this.logout = this.logout.bind(this);
   }
