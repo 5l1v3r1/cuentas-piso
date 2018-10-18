@@ -10,13 +10,6 @@ export default class ModalAddCuenta extends React.Component {
       modal: false
     };
 
-    // this.props.
-      // reset
-      // buttonLabel
-      // className
-      // handleChange
-      // printUsersAsCheckbox()
-
     this.toggle = this.toggle.bind(this);
   }
 
@@ -45,7 +38,7 @@ export default class ModalAddCuenta extends React.Component {
             {/* Checkbox usuarios involucrados */}
             <h5>Usuarios involucrados:</h5>
             <FormGroup id="usersCheckboxInput" check inline>
-                { this.props.printUsersAsCheckbox() }
+                {/* { this.props.printUsersAsCheckbox() } */}
             </FormGroup>
           </ModalBody>
           <ModalFooter>

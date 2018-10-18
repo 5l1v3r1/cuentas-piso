@@ -2,3 +2,20 @@
     margin: 0;
     padding: 0;
 }
+
+.col {
+    padding: 1rem 0;
+}
+
+#paymentsForm {
+    width: 90%;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.floatRight {
+    float: right;
+}

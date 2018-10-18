@@ -31,3 +31,18 @@
   }
 }
 */
+
+.appFormStyle {
+  width: 50% !important;
+  padding: 1.8rem;
+  margin: 0 auto;
+}
+
+.appFormStyle button {
+  margin: 1.2rem 0;
+}
+
+.appFormStyle p {
+  text-align: right;
+  font-size: 0.7rem;
+}
