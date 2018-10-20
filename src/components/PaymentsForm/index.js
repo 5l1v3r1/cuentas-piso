@@ -6,7 +6,7 @@ import { Container, Col, Row, Form, Button, FormGroup,
          Label, Dropdown, DropdownItem,
          Card, CardImg, CardFooter} from 'reactstrap';
 
-import AuthUserContext from '../AuthUserContext';
+import withAuthentication from '../../components/withAuthentication';
 import { DebugTable } from '../DebugTable'
 import { auth, db } from '../../firebase';
 
@@ -19,6 +19,7 @@ const PaymentsFormPage = ({ history }) =>
   </div>
 
 const INITIAL_STATE = {
+    authorID: '',
     dropdownOpen: false,
     users: [],
     selectedUsers: [],
@@ -46,11 +47,14 @@ class PaymentsForm extends Component {
     }
 
     componentDidMount(){
+        this.setState({
+            authorID: auth.getCurrentUserUID(),
+        });
         // SET THE LIST OF USERS (Objects) FROM FIREBASE DB TO STATE
         db.onceGetUsers().then(snapshot =>
           this.setState({ users: snapshot.val() })
         );
-      }
+    }
 
     toggleDropdown() {
         this.setState({
@@ -119,13 +123,13 @@ class PaymentsForm extends Component {
     }
 
     onSubmit = (event) => {
-        // Set ticket's timestamp and author
+        // Set ticket's timestamp
         const timestamp = Date.now();
-        const authorID = localStorage.getItem('currentUser');
 
         const {
             amount,
             desc,
+            authorID,
             selectedUsers,
         } = this.state;
     
@@ -244,7 +248,7 @@ class PaymentsForm extends Component {
     }
 }
 
-export default PaymentsFormPage;
+export default withAuthentication(PaymentsFormPage);
 
 {/* Selección de cuenta
 <Col>

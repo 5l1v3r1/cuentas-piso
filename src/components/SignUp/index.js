@@ -57,7 +57,7 @@ class SignUpForm extends Component {
         // Create a user in your own accessible Firebase Database too
         db.doCreateUser(authUser.user.uid, username, email, avatar)
           .then(() => {
-            localStorage.setItem('currentUser', authUser.user.uid);
+            localStorage.setItem('currentUserLocal', auth.currentUser.uid);
             this.setState({ ...INITIAL_STATE });
             history.push(routes.BOARD);
           })

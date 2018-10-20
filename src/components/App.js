@@ -14,6 +14,7 @@ import withAuthentication from './withAuthentication';
 
 import * as routes from '../constants/routes';
 
+localStorage.getItem('currentUserLocal');
 
 const App = () =>
   <Router>

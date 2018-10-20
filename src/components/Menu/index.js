@@ -31,8 +31,8 @@ class Menu extends React.Component {
   }
 
   logout() {
+    localStorage.setItem('currentUserLocal', null);
     auth.signOut();  // Firebase API call to deauth
-    localStorage.setItem('currentUser', null);
   }
 
   render() {

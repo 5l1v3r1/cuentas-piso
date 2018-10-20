@@ -10,7 +10,6 @@ auth.signInWithEmailAndPassword(email, password);
 
 // Sign out
 export const doLogout = () =>
-  console.log("[!] Signed OUT");
   auth.signOut();
 
 // Password Reset
@@ -20,3 +19,11 @@ export const doPasswordReset = (email) =>
 // Password Change
 export const doPasswordUpdate = (password) =>
   auth.currentUser.updatePassword(password);
+
+  // Get the current user UID
+export function getCurrentUserUID() {
+  if (auth.currentUser) {
+    return auth.currentUser.uid;
+  };
+  return null;
+};

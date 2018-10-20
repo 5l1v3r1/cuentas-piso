@@ -19,10 +19,22 @@ export const onceGetUsers = () =>
 // function will return all users from the Firebase realtime database.
 
 export const doCreateTicket = (desc, amount, author, users, timestamp) =>
-  db.ref(`tickets/`).push({  // push GENERATES AUTOMATICALLY AN UNIQUE ID
+  db.ref('tickets/').push({  // push GENERATES AUTOMATICALLY AN UNIQUE ID
     desc,
     amount,
     author,
     users,
     timestamp
   });
+
+export const onceGetAuthorTickets = (authorID) =>
+  db.ref('tickets/').orderByChild('author/').equalTo(authorID).once("value");
+
+export const onceGetOtherTickets = (authorID) =>
+  db.ref('tickets/').orderByChild(`users/${authorID}`).once("value");
+
+// limitToFirst() 	Configura la cantidad máxima de elementos que pueden mostrarse desde el comienzo de la lista de resultados ordenada.
+// limitToLast() 	Configura la cantidad máxima de elementos que pueden mostrarse desde el final de la lista de resultados ordenada.
+// startAt() 	Muestra elementos con un valor igual o superior a la clave o el valor que se especifica según el método de ordenamiento seleccionado.
+// endAt() 	Muestra elementos con un valor inferior o igual a la clave o el valor que se especifica según el método de ordenamiento seleccionado.
+// equalTo() 	Muestra elementos con un valor igual a la clave o el valor que se especifica según el método de ordenamiento seleccionado.

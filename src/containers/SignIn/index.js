@@ -50,7 +50,7 @@ class SignInForm extends Component {
     auth.doSignInWithEmailAndPassword(email, password)
     .then(authUser => {
       this.setState({ ...INITIAL_STATE });
-      localStorage.setItem('currentUser', authUser.user.uid);
+      localStorage.setItem('currentUserLocal', auth.getCurrentUserUID());
       history.push(routes.BOARD);  // Redirection
     })
     .catch(error => {

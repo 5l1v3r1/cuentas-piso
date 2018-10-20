@@ -15,3 +15,6 @@ const AdminPage = () =>
 const authCondition = (authUser) => !!authUser && authUser.role === 'ADMIN';
 
 export default withAuthorization(authCondition)(AdminPage);
+
+
+// Para el futuro [...]

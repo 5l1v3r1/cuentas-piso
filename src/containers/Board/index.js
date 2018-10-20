@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row } from 'reactstrap';
 
-import PaymentsFormPage from '../../components/PaymentsForm'
+import PaymentsFormPage from '../../components/PaymentsForm';
+import { InfoTable } from '../../components/InfoTable';
 import withAuthorization from '../../components/withAuthorization';
 
 import './index.css'
@@ -49,9 +50,9 @@ class Board extends Component {
     return (
       <div className="Board">
       <Container>
+          <PaymentsFormPage {...this.props} cuentas={this.state.cuentas} lineasCuenta={this.state.lineasCuenta} />
 
-          <PaymentsFormPage cuentas={this.state.cuentas} lineasCuenta={this.state.lineasCuenta} />
-
+          <InfoTable {...this.props} />
         </Container>
         </div>
     );

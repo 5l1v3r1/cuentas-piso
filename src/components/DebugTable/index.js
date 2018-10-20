@@ -15,7 +15,6 @@ class DebugTable extends Component {
       this.toggle = this.toggle.bind(this);
     }
 
-
     toggle() {
       this.setState({
         popoverOpen: !this.state.popoverOpen
@@ -23,9 +22,9 @@ class DebugTable extends Component {
     }
 
     arrayItemsToLi(array){
-      // if (array === null){
-      //   return null;
-      // }
+      if (array === null){
+        return null;
+      }
       return array.map((item) => {
         return (
             <li>{item}</li>
@@ -41,7 +40,7 @@ class DebugTable extends Component {
           <tr>
             <th scope="row">{varName}: </th>
             <td>
-              { value instanceof Object
+              { value instanceof Array
                 ? <ul> {this.arrayItemsToLi(value)} </ul>
                 : value }
             </td>
