@@ -3,12 +3,12 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const config = {
-    apiKey: "AIzaSyBX7AfuTvoq7X9AkNPIhj1pfx1MuY89K7Q",
+    apiKey: "",
     authDomain: "cuentas-piso-app.firebaseapp.com",
     databaseURL: "https://cuentas-piso-app.firebaseio.com",
     projectId: "cuentas-piso-app",
     storageBucket: "cuentas-piso-app.appspot.com",
-    messagingSenderId: "738772367848"
+    messagingSenderId: ""
 };
 
 

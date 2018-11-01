@@ -6,25 +6,37 @@ import { PasswordForgetForm } from '../PasswordForget';
 import PasswordChangeForm from '../PasswordChange';
 import withAuthorization from '../withAuthorization';
 
+import './index.css';
+
 const AccountPage = () =>
   <AuthUserContext.Consumer>
     {authUser =>
-      <Table>
+      <div class="centered">
+      <Table bordered id="accountInfo">
         <tbody>
           <tr>
-            <td>Account </td>
+            <th scope="row">Account</th>
             <td>{authUser.email}</td>
           </tr>
           <tr>
-            <td>Password forget </td>
+            <th scope="row">Unique ID</th>
+            <td>{authUser.uid}</td>
+          </tr>
+        </tbody>
+      </Table>
+      <Table bordered id="accountActions">
+        <tbody>
+          <tr>
+            <th scope="row">Password forget </th>
             <td><PasswordForgetForm /></td>
           </tr>
           <tr>
-            <td>Password change </td>
+            <th scope="row">Password change </th>
             <td><PasswordChangeForm /></td>
           </tr>
         </tbody>
       </Table>
+      </div>
     }
   </AuthUserContext.Consumer>
 

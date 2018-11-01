@@ -162,7 +162,7 @@ class PaymentsForm extends Component {
           } = this.state;
       
         const isInvalid =
-            (selectedUsers === []) ||
+            (selectedUsers.length === 0) ||
             (desc === '') ||
             (amount === '');
 

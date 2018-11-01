@@ -4,6 +4,7 @@ import { Table } from 'reactstrap';
 import { auth, db } from '../../firebase';
 
 import './index.css';
+import { forEach } from '@firebase/util';
 
 const InfoTablePage = ({ history }) =>
   <div className="loginFormApp">
@@ -12,8 +13,8 @@ const InfoTablePage = ({ history }) =>
 
 const INITIAL_STATE = {
     authorID: '',
-    tickets: {},
-    otherTickets: {}
+    tickets: '',
+    otherTickets: '',
 }
 
 class InfoTable extends Component {
@@ -26,15 +27,30 @@ class InfoTable extends Component {
 
     componentDidMount(){
         const getAuthorUID = auth.getCurrentUserUID();
-        // Set the tickets list
         this.setState({ authorID: getAuthorUID });
         // Get the data
         db.onceGetAuthorTickets(getAuthorUID).then(snapshot =>
             this.setState({ tickets: snapshot.val() })
         );
-        db.onceGetOtherTickets(getAuthorUID).then(snapshot =>
-            this.setState({ otherTickets: snapshot.val() })
-        );
+        db.onceGetOtherTickets(getAuthorUID).then(snapshot => {
+
+            console.log('************* DEBUG ******************');
+            const allTickets = snapshot.val();
+            allTickets.key = snapshot.key;
+            console.log(allTickets.key);
+            console.table(allTickets);
+            console.log('************* DEBUG ******************');
+
+            this.setState({ otherTickets: snapshot.val() });
+        });
+        // Difference a\b
+        const otherTickets = this.state.otherTickets;
+        console.log(this.state.otherTickets);
+        Object.keys(otherTickets).map((key) => {
+            var ticketUID = key;
+            var field = otherTickets[key];
+            console.log(ticketUID + ' = ' + field);
+        });
     }
 
     createLiItems(objectItems){
@@ -43,7 +59,6 @@ class InfoTable extends Component {
             
             if (objectItems[key] instanceof Object) {
                 var nestedObject = Object.assign({}, objectItems[key]); // Convierto array en objeto
-                console.log(nestedObject);
                 return ( 
                 <li>
                     <dl>
@@ -88,9 +103,11 @@ class InfoTable extends Component {
         <Container>
             <Row>
                 <Col><div class="ticketTables">
-                    <Table hover>
+                    <Table size="sm">
                         <thead>
-                        <tr><h5>Tickets creados por ti</h5></tr>
+                        <tr>
+                            <td colSpan="2"><h5>Tickets creados por ti</h5></td>
+                        </tr>
                         <tr>
                             <th>Ticket UID</th>
                             <th>values</th>
@@ -103,9 +120,11 @@ class InfoTable extends Component {
                 </div></Col>
                 
                 <Col><div class="ticketTables">
-                    <Table hover>
+                    <Table small>
                         <thead>
-                        <tr><h5>Tickets de otros</h5></tr>
+                        <tr>
+                            <td colSpan="2"><h5>Tickets de otros</h5></td>
+                        </tr>
                         <tr>
                             <th>Ticket UID</th>
                             <th>values</th>
